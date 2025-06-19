@@ -94,6 +94,7 @@ func (m *Mail) SendSMPTMessage(msg Message) error {
 }
 
 func (m *Mail) buildHTMLMessage(msg Message) (string, error) {
+	// always relative to CLI run
 	templateToRender := "./templates/mail.html.gohtml"
 
 	t, err := template.New("email-html").ParseFiles(templateToRender)
@@ -124,6 +125,7 @@ func (m *Mail) buildPlainTextMessage(msg Message) (string, error) {
 	}
 
 	var tpl bytes.Buffer
+	// stores content
 	if err = t.ExecuteTemplate(&tpl, "body", msg.DataMap); err != nil {
 		return "", err
 	}
