@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"log"
 	"text/template"
 	"time"
 
@@ -68,6 +69,7 @@ func (m *Mail) SendSMPTMessage(msg Message) error {
 	// create client, connect to host
 	smtpClient, err := server.Connect()
 	if err != nil {
+		log.Println(err)
 		return err
 	}
 
@@ -87,6 +89,7 @@ func (m *Mail) SendSMPTMessage(msg Message) error {
 
 	err = email.Send(smtpClient)
 	if err != nil {
+		log.Println(err)
 		return err
 	}
 
